@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AYE</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+        text-align: center;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        color: #fff;
+        overflow: hidden;
+        position: relative;
+      }
+      h1 {
+        margin-bottom: 20px;
+        font-size: 32px;
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px 20px;
+        border-radius: 15px;
+      }
+      .buttons {
+        display: flex;
+        gap: 20px;
+        position: relative;
+      }
+      button {
+        padding: 15px 30px;
+        font-size: 22px;
+        cursor: pointer;
+        border: none;
+        border-radius: 30px;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+      }
+      .yes,
+      .no {
+        background-color: #ff69b4;
+        color: white;
+        border: 3px solid #ff1493;
+        box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+        font-weight: bold;
+      }
+      .yes:hover,
+      .no:hover {
+        background-color: #ff1493;
+        transform: scale(1.2);
+      }
+      .no {
+        position: absolute;
+        transition: transform 0.3s ease-in-out;
+        font-size: 22px;
+      }
+      #meme {
+        width: 250px;
+        margin-top: 20px;
+        display: none;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      }
+      .heart {
+        position: absolute;
+        font-size: 24px;
+        color: red;
+        animation: floatUp 5s linear infinite;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) scale(1.5);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Em có đồng ý làm bạn gái anh không? 🥰</h1>
+    <div class="buttons">
+      <button class="yes" onclick="accept()">Có ♥</button>
+      <button class="no" onmouseover="moveNo()">Không</button>
+    </div>
+    <img
+      id="meme"
+      src="https://blog.maika.ai/wp-content/uploads/2024/02/anh-meo-meme-23.jpg"
+      alt="Cute Meme"
+    />
+
+    <script>
+      let yesButton = document.querySelector(".yes");
+      let noButton = document.querySelector(".no");
+      let meme = document.getElementById("meme");
+
+      function accept() {
+        alert("Yayyy! Anh biết mà, yêu em nhiều! ❤️");
+        meme.style.display = "block";
+        setInterval(createHeart, 200);
+      }
+
+      function moveNo() {
+        let noRect = noButton.getBoundingClientRect();
+        let maxX = document.body.clientWidth - noRect.width - 50;
+        let maxY = document.body.clientHeight - noRect.height - 50;
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
+        noButton.style.transform = `translate(${x}px, ${y}px)`;
+
+        let currentSize = parseFloat(
+          window.getComputedStyle(yesButton).fontSize
+        );
+        yesButton.style.fontSize = `${Math.min(currentSize + 5, 60)}px`;
+      }
+
+      function createHeart() {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 5000);
+      }
+    </script>
+  </body>
+</html>
